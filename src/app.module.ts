@@ -6,6 +6,7 @@ import { PrismaModule } from './prisma/prisma.module.js';
 import { RepuestosModule } from './repuestos/repuestos.module.js';
 import { DetalleRepuestosModule } from './detalle-repuestos/detalle-repuestos.module.js';
 import { VehiculosModule } from './vehiculos/vehiculos.module.js';
+import { UsuariosModule } from './usuarios/usuarios.module.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -20,6 +21,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     VehiculosModule,
     RepuestosModule,
     DetalleRepuestosModule,
+    UsuariosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
