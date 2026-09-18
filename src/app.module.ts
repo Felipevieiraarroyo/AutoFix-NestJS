@@ -7,6 +7,8 @@ import { RepuestosModule } from './repuestos/repuestos.module.js';
 import { DetalleRepuestosModule } from './detalle-repuestos/detalle-repuestos.module.js';
 import { VehiculosModule } from './vehiculos/vehiculos.module.js';
 import { UsuariosModule } from './usuarios/usuarios.module.js';
+import { AuthModule } from './auth/auth.module.js';
+
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -22,6 +24,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     RepuestosModule,
     DetalleRepuestosModule,
     UsuariosModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
