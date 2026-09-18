@@ -1,20 +1,26 @@
-import { IsString, IsNotEmpty, IsNumber, IsInt } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsPositive,
+  IsString,
+} from 'class-validator';
 
 export class CreateVehiculoDto {
   @IsString()
   @IsNotEmpty()
-  placa: string;
+  placa!: string;
 
   @IsString()
   @IsNotEmpty()
-  marca: string;
+  marca!: string;
 
   @IsString()
   @IsNotEmpty()
-  modelo: string;
+  modelo!: string;
 
-  @IsNumber()
+  @Type(() => Number)
   @IsInt()
-  @IsNotEmpty()
-  clienteId: number;
+  @IsPositive()
+  clienteId!: number;
 }
