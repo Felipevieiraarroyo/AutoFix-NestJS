@@ -1,51 +1,51 @@
-import {
-  ConflictException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service.js';
-
-type CrearVehiculoData = {
-  placa: string;
-  marca: string;
-  modelo: string;
-  clienteId: number;
-};
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from './prisma/prisma.service.js';
+import { CreateVehiculoDto } from './dto/create-vehiculo.dto.js';
+import { UpdateVehiculoDto } from './dto/update-vehiculo.dto.js';
 
 @Injectable()
-export class VehiculosService {
+export class VehiculosService {  // <-- Asegúrate de que tenga "export" aquí
   constructor(private readonly prisma: PrismaService) {}
 
-  async crear(data: CrearVehiculoData) {
-    const cliente = await this.prisma.clientes.findUnique({
-      where: {
-        id: data.clienteId,
-      },
-    });
-
-    if (!cliente) {
-      throw new NotFoundException('El cliente indicado no existe');
-    }
-
-    const vehiculoExistente = await this.prisma.vehiculos.findUnique({
-      where: {
-        placa: data.placa,
-      },
-    });
-
-    if (vehiculoExistente) {
-      throw new ConflictException(
-        'Ya existe un vehículo registrado con esa placa',
-      );
-    }
-
+  create(createVehiculoDto: CreateVehiculoDto) {
     return this.prisma.vehiculos.create({
-      data: {
-        placa: data.placa,
-        marca: data.marca,
-        modelo: data.modelo,
-        clienteId: data.clienteId,
+      data: createVehiculoDto,
+      include: {
+        cliente: true,
       },
+    });
+  }
+
+  findAll() {
+    return this.prisma.vehiculos.findMany({
+      include: {
+        cliente: true,
+      },
+    });
+  }
+
+  findOne(id: number) {
+    return this.prisma.vehiculos.findUniqueOrThrow({
+      where: { id },
+      include: {
+        cliente: true,
+      },
+    });
+  }
+
+  update(id: number, updateVehiculoDto: UpdateVehiculoDto) {
+    return this.prisma.vehiculos.update({
+      where: { id },
+      data: updateVehiculoDto,
+      include: {
+        cliente: true,
+      },
+    });
+  }
+
+  remove(id: number) {
+    return this.prisma.vehiculos.delete({
+      where: { id },
     });
   }
 }
