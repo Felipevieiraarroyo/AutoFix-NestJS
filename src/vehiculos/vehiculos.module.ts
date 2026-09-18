@@ -5,6 +5,6 @@ import { VehiculosController } from './vehiculos.controller.js';
 @Module({
   controllers: [VehiculosController],
   providers: [VehiculosService],
-  exports: [VehiculosService], // Por si otro módulo (como Órdenes) necesita inyectarlo
+  exports: [VehiculosService], 
 })
 export class VehiculosModule {}
