@@ -16,6 +16,7 @@ export class PrismaService
       connectionString: process.env.DATABASE_URL,
     });
 
+    // Le pasamos el adaptador al cliente de Prisma
     super({ adapter });
   }
 
